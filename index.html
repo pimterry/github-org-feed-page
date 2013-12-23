@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="src/lib/require.js" data-main="src/main.js"></script>
+</head>
+<body>
+<ul class="feed" data-bind="foreach: majorEvents">
+    <li class="majorEvent">
+        <span class="username" data-bind="text: username"></span> <span data-bind="text: eventActionSummary"></span>
+
+        <div class="eventDetail" data-bind="text: eventDetail"></div>
+
+        <div class="eventTime" data-bind="text: eventTime"></div>
+    </li>
+</ul>
+</body>
+</html>
