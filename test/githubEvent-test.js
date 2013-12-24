@@ -56,5 +56,24 @@ define(["test/lib/Squire"], function (Squire) {
 
             expect(event.eventActionSummary).toEqual("pushed 1 commit to pimterry/loglevel");
         });
+
+        it("should have a description for pull requests", function () {
+            var event = new GithubEvent({
+                type: "PullRequestEvent",
+                repository: {
+                    owner: "junit-team",
+                    name: "junit"
+                },
+                payload: {
+                    action: "opened",
+                    pull_request: {
+                        title: "New Pull Request"
+                    }
+                }
+            });
+
+            expect(event.eventActionSummary)
+                .toEqual("opened pull request 'New Pull Request' for junit-team/junit");
+        });
     });
 });

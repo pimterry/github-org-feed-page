@@ -27,6 +27,13 @@ define(["moment"], function (moment) {
                 return "pushed " + commitsPushed + " to " +
                        rawEvent.repository.owner + "/" + rawEvent.repository.name;
             }
+        },
+        PullRequestEvent: {
+            actionSummary: function (rawEvent) {
+                return rawEvent.payload.action + " pull request '" +
+                       rawEvent.payload.pull_request.title + "' for " +
+                       rawEvent.repository.owner + "/" + rawEvent.repository.name;
+            }
         }
     };
 
