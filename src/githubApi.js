@@ -14,9 +14,6 @@ define(["lib/reqwest", "lib/lodash", "lib/knockout", "githubEvent"],
     function getUserEvents(username) {
         return reqwest({
             url: 'https://github.com/' + username + '.json?callback=?',
-            method: 'get',
-            crossOrigin: true,
-            headers: { "Accept": "application/json" },
             type: 'jsonp'
         }).then(function (response) {
             return _.map(response, function (response) {
@@ -37,9 +34,11 @@ define(["lib/reqwest", "lib/lodash", "lib/knockout", "githubEvent"],
             _.each(members, function (member) {
                 getUserEvents(member.login).then(function (userEvents) {
                     var combinedEvents = events().concat(userEvents);
+
                     events(_.sortBy(combinedEvents, function (e) {
                         return e.timestamp;
                     }).reverse());
+
                     loading--;
                 });
             });
