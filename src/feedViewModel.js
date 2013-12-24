@@ -16,7 +16,7 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
         self.majorEvents = ko.computed(function () {
             return _.where(events(), function (e) {
                 return _.contains([
-                    "PushEvent",
+                    "IssuesEvent",
                     "PullRequestEvent"
                 ], e.type);
             });

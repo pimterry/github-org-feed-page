@@ -34,6 +34,13 @@ define(["moment"], function (moment) {
                        rawEvent.payload.pull_request.title + "' for " +
                        rawEvent.repository.owner + "/" + rawEvent.repository.name;
             }
+        },
+        IssuesEvent: {
+            actionSummary: function (rawEvent) {
+                return rawEvent.payload.action + " issue #" +
+                    rawEvent.payload.number + " in " +
+                    rawEvent.repository.owner + "/" + rawEvent.repository.name;
+            }
         }
     };
 

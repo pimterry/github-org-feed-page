@@ -75,5 +75,22 @@ define(["test/lib/Squire"], function (Squire) {
             expect(event.eventActionSummary)
                 .toEqual("opened pull request 'New Pull Request' for junit-team/junit");
         });
+
+        it("should have a description for issues", function () {
+            var event = new GithubEvent({
+                type: "IssuesEvent",
+                repository: {
+                    owner: "junit-team",
+                    name: "junit"
+                },
+                payload: {
+                    action: "closed",
+                    number: 34
+                }
+            });
+
+            expect(event.eventActionSummary)
+                .toEqual("closed issue #34 in junit-team/junit");
+        });
     });
 });
