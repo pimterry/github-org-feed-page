@@ -4,6 +4,14 @@
     <script src="src/lib/require.js" data-main="src/main.js"></script>
 </head>
 <body>
+<ul class="feed" style="float: right; font-size: 80%" data-bind="foreach: minorEvents">
+    <li class="majorEvent">
+        <span class="username" data-bind="text: username"></span> <span data-bind="text: eventActionSummary"></span>
+
+        <div class="eventTime" data-bind="text: eventTime"></div>
+    </li>
+</ul>
+
 <ul class="feed" data-bind="foreach: majorEvents">
     <li class="majorEvent">
         <span class="username" data-bind="text: username"></span> <span data-bind="text: eventActionSummary"></span>

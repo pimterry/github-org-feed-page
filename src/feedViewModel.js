@@ -20,7 +20,7 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
                     "PullRequestEvent",
                     "ForkEvent"
                 ], e.type);
-            });
+            }).slice(0, 20);
         });
 
         self.minorEvents = ko.computed(function () {
@@ -29,7 +29,7 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
                     "PushEvent",
                     "WatchEvent"
                 ], e.type);
-            });
+            }).slice(0, 20);
         });
     };
 });
