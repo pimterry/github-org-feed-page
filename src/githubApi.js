@@ -6,15 +6,18 @@ define(["lib/reqwest", "lib/lodash", "lib/knockout", "githubEvent"],
 
     function getOrganisationMembers(orgName) {
         return reqwest({
-            url: rootUrl + '/orgs/' + orgName + '/members',
+            url: 'https://api.github.com/orgs/' + orgName + '/members',
             type: 'json'
         });
     }
 
     function getUserEvents(username) {
         return reqwest({
-            url: rootUrl + '/users/' + username + '/events',
-            type: 'json'
+            url: 'https://github.com/' + username + '.json?callback=?',
+            method: 'get',
+            crossOrigin: true,
+            headers: { "Accept": "application/json" },
+            type: 'jsonp'
         }).then(function (response) {
             return _.map(response, function (response) {
                 return new GithubEvent(response);
