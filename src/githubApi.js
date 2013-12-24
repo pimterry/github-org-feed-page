@@ -36,7 +36,10 @@ define(["lib/reqwest", "lib/lodash", "lib/knockout", "githubEvent"],
 
             _.each(members, function (member) {
                 getUserEvents(member.login).then(function (userEvents) {
-                    events(events().concat(userEvents));
+                    var combinedEvents = events().concat(userEvents);
+                    events(_.sortBy(combinedEvents, function (e) {
+                        return e.timestamp;
+                    }).reverse());
                     loading--;
                 });
             });
