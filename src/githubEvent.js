@@ -41,6 +41,16 @@ define(["moment"], function (moment) {
                     rawEvent.payload.number + " in " +
                     rawEvent.repository.owner + "/" + rawEvent.repository.name;
             }
+        },
+        ForkEvent: {
+            actionSummary: function (rawEvent) {
+                return "forked " + rawEvent.repository.owner + "/" + rawEvent.repository.name;
+            }
+        },
+        WatchEvent: { // Due to an accident of github api history, watch means star
+            actionSummary: function (rawEvent) {
+                return "starred " + rawEvent.repository.owner + "/" + rawEvent.repository.name;
+            }
         }
     };
 

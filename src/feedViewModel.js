@@ -17,7 +17,8 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
             return _.where(events(), function (e) {
                 return _.contains([
                     "IssuesEvent",
-                    "PullRequestEvent"
+                    "PullRequestEvent",
+                    "ForkEvent"
                 ], e.type);
             });
         });
@@ -26,7 +27,7 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
             return _.where(events(), function (e) {
                 return _.contains([
                     "PushEvent",
-                    "StarEver"
+                    "WatchEvent"
                 ], e.type);
             });
         });

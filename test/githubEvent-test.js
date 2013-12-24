@@ -92,5 +92,31 @@ define(["test/lib/Squire"], function (Squire) {
             expect(event.eventActionSummary)
                 .toEqual("closed issue #34 in junit-team/junit");
         });
+
+        it("should have a description for issues", function () {
+            var event = new GithubEvent({
+                type: "ForkEvent",
+                repository: {
+                    owner: "knockout",
+                    name: "knockout"
+                }
+            });
+
+            expect(event.eventActionSummary)
+                .toEqual("forked knockout/knockout");
+        });
+
+        it("should have a description for star events", function () {
+            var event = new GithubEvent({
+                type: "WatchEvent",
+                repository: {
+                    owner: "knockout",
+                    name: "knockout"
+                }
+            });
+
+            expect(event.eventActionSummary)
+                .toEqual("starred knockout/knockout");
+        });
     });
 });
