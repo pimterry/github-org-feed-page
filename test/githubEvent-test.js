@@ -24,5 +24,37 @@ define(["test/lib/Squire"], function (Squire) {
 
             expect(event.timestamp).toEqual(eventDate.valueOf());
         });
+
+        it("should have a description for push events", function () {
+            var event = new GithubEvent({
+                type: "PushEvent",
+                repository: {
+                    owner: "pimterry",
+                    name: "loglevel"
+                },
+                payload: {
+                    shas: [
+                        {}, {}, {}
+                    ]
+                }
+            });
+
+            expect(event.eventActionSummary).toEqual("pushed 3 commits to pimterry/loglevel");
+        });
+
+        it("should have a singular description for single push events", function () {
+            var event = new GithubEvent({
+                type: "PushEvent",
+                repository: {
+                    owner: "pimterry",
+                    name: "loglevel"
+                },
+                payload: {
+                    shas: [ {} ]
+                }
+            });
+
+            expect(event.eventActionSummary).toEqual("pushed 1 commit to pimterry/loglevel");
+        });
     });
 });
