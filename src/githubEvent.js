@@ -7,7 +7,7 @@ define(["moment"], function (moment) {
        self.username = rawEvent.actor;
        self.type = rawEvent.type;
        self.eventActionSummary = "opened pull request to pimterry/github-org-feed-page";
-       self.eventDetail = "Initial commit"
+       self.eventDetail = "Initial commit";
        self.eventTime = createdAt.fromNow();
        self.timestamp = createdAt.valueOf();
    };

@@ -31,4 +31,4 @@ define(["lib/knockout", "lib/lodash", "githubApi"],
             });
         });
     };
-})
+});
