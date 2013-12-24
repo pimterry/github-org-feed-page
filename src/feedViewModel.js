@@ -1,11 +1,34 @@
-define(["lib/knockout", "lib/lodash", "event"], function (ko, _, event) {
-    return function FeedViewModel() {
+define(["lib/knockout", "lib/lodash", "githubApi"],
+  function (ko, _, githubApi) {
+    return function FeedViewModel(organisationName) {
         var self = this;
 
-        self.majorEvents = ko.observableArray(_.map([
-            { "username": "pimterry" },
-            { "username": "other" }
-        ], event));
-        self.minorEvents = ko.observableArray();
+        var events = githubApi.getOrganisationEvents("Softwire");
+
+        var loaded = ko.computed(function () {
+            if (events.loadingComplete()) {
+                return true;
+            } else {
+                return events().length > 0;
+            }
+        });
+
+        self.majorEvents = ko.computed(function () {
+            return _.where(events(), function (e) {
+                return _.contains([
+                    "CreateEvent",
+                    "PullRequestEvent"
+                ], e.type);
+            });
+        });
+
+        self.minorEvents = ko.computed(function () {
+            return _.where(events(), function (e) {
+                return _.contains([
+                    "PushEvent",
+                    "StarEver"
+                ], e.type);
+            });
+        });
     };
 })

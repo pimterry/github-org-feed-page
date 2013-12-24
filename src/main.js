@@ -5,5 +5,5 @@ requirejs.config({
 })
 
 require(["feedViewModel", "lib/knockout"], function (ViewModel, ko) {
-    ko.applyBindings(new ViewModel());
+    ko.applyBindings(new ViewModel("Softwire"));
 });
