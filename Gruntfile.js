@@ -9,7 +9,16 @@ module.exports = function (grunt) {
                 specs: 'test/*-test.js',
                 vendor: 'test/vendor/*.js',
                 helpers: 'test/*-helper.js',
-                template: require('grunt-template-jasmine-requirejs')
+                template: require('grunt-template-jasmine-requirejs'),
+                templateOptions: {
+                    requireConfig: {
+                        baseUrl: "src",
+                        paths: {
+                            "test": "../test",
+                            "moment": "lib/moment"
+                        }
+                    }
+                }
             }
         },
         jshint: {
