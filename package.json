@@ -31,11 +31,11 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.9",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-watch": "~0.5.1",
     "grunt-contrib-jasmine": "~0.5.2",
-    "grunt-template-jasmine-requirejs": "~0.1.6",
-    "grunt-open": "~0.2.2"
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-open": "~0.2.2",
+    "grunt-template-jasmine-requirejs": "~0.1.6"
   },
   "keywords": [
     "github",

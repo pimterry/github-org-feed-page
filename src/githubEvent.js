@@ -2,9 +2,9 @@ define(["moment"], function (moment) {
     function GithubEvent(rawEvent) {
         var self = this;
 
-        var createdAt = moment(rawEvent.created_at);
+        var createdAt = moment(rawEvent.createdAt);
 
-        self.username = rawEvent.actor;
+        self.username = rawEvent.actor.login;
         self.type = rawEvent.type;
 
         self.eventTime = createdAt.fromNow();
@@ -21,35 +21,35 @@ define(["moment"], function (moment) {
     var eventTypes = {
         PushEvent: {
             actionSummary: function (rawEvent) {
-                var commits = rawEvent.payload.shas;
+                var commits = rawEvent.payload.commits;
                 var commitsPushed = commits.length + " commit" + (commits.length > 1 ? "s" : "");
 
-                return "pushed " + commitsPushed + " to " +
-                       rawEvent.repository.owner + "/" + rawEvent.repository.name;
+                return "pushed " + commitsPushed + " to " + rawEvent.repo.name;
             }
         },
         PullRequestEvent: {
             actionSummary: function (rawEvent) {
                 return rawEvent.payload.action + " pull request '" +
-                       rawEvent.payload.pull_request.title + "' for " +
-                       rawEvent.repository.owner + "/" + rawEvent.repository.name;
+                       rawEvent.payload.pullRequest.title + "' for " +
+                       rawEvent.repo.name;
             }
         },
         IssuesEvent: {
             actionSummary: function (rawEvent) {
                 return rawEvent.payload.action + " issue #" +
-                    rawEvent.payload.number + " in " +
-                    rawEvent.repository.owner + "/" + rawEvent.repository.name;
+                       rawEvent.payload.issue.number + ": '" +
+                       rawEvent.payload.issue.title + "' in " +
+                       rawEvent.repo.name;
             }
         },
         ForkEvent: {
             actionSummary: function (rawEvent) {
-                return "forked " + rawEvent.repository.owner + "/" + rawEvent.repository.name;
+                return "forked " + rawEvent.repo.name;
             }
         },
         WatchEvent: { // Due to an accident of github api history, watch means star
             actionSummary: function (rawEvent) {
-                return "starred " + rawEvent.repository.owner + "/" + rawEvent.repository.name;
+                return "starred " + rawEvent.repo.name;
             }
         }
     };

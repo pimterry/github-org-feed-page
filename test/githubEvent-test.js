@@ -20,7 +20,10 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a correct timestamp", function () {
             var eventDate = new Date();
 
-            var event = new GithubEvent({created_at: eventDate.toISOString()});
+            var event = new GithubEvent({
+                createdAt: eventDate.toISOString(),
+                actor: {}
+            });
 
             expect(event.timestamp).toEqual(eventDate.valueOf());
         });
@@ -28,12 +31,12 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a description for push events", function () {
             var event = new GithubEvent({
                 type: "PushEvent",
-                repository: {
-                    owner: "pimterry",
-                    name: "loglevel"
+                actor: {},
+                repo: {
+                    name: "pimterry/loglevel"
                 },
                 payload: {
-                    shas: [
+                    commits: [
                         {}, {}, {}
                     ]
                 }
@@ -45,12 +48,12 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a singular description for single push events", function () {
             var event = new GithubEvent({
                 type: "PushEvent",
-                repository: {
-                    owner: "pimterry",
-                    name: "loglevel"
+                actor: {},
+                repo: {
+                    name: "pimterry/loglevel"
                 },
                 payload: {
-                    shas: [ {} ]
+                    commits: [ {} ]
                 }
             });
 
@@ -60,13 +63,13 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a description for pull requests", function () {
             var event = new GithubEvent({
                 type: "PullRequestEvent",
-                repository: {
-                    owner: "junit-team",
-                    name: "junit"
+                actor: {},
+                repo: {
+                    name: "junit-team/junit"
                 },
                 payload: {
                     action: "opened",
-                    pull_request: {
+                    pullRequest: {
                         title: "New Pull Request"
                     }
                 }
@@ -79,26 +82,29 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a description for issues", function () {
             var event = new GithubEvent({
                 type: "IssuesEvent",
-                repository: {
-                    owner: "junit-team",
-                    name: "junit"
+                actor: {},
+                repo: {
+                    name: "junit-team/junit"
                 },
                 payload: {
                     action: "closed",
-                    number: 34
+                    issue: {
+                        number: 34,
+                        title: "title"
+                    }
                 }
             });
 
             expect(event.eventActionSummary)
-                .toEqual("closed issue #34 in junit-team/junit");
+                .toEqual("closed issue #34: 'title' in junit-team/junit");
         });
 
         it("should have a description for issues", function () {
             var event = new GithubEvent({
                 type: "ForkEvent",
-                repository: {
-                    owner: "knockout",
-                    name: "knockout"
+                actor: {},
+                repo: {
+                    name: "knockout/knockout"
                 }
             });
 
@@ -109,9 +115,9 @@ define(["test/lib/Squire"], function (Squire) {
         it("should have a description for star events", function () {
             var event = new GithubEvent({
                 type: "WatchEvent",
-                repository: {
-                    owner: "knockout",
-                    name: "knockout"
+                actor: {},
+                repo: {
+                    name: "knockout/knockout"
                 }
             });
 
